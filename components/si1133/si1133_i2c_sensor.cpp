@@ -1,12 +1,13 @@
-#include "si_i2c_sensor.h"
+#include "si1133_i2c_sensor.h"
+#include "si1133.h"
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace empty_i2c_sensor {
+namespace si1133_i2c_sensor {
 
-static const char *TAG = "empty_i2c_sensor.sensor";
+static const char *TAG = "si1133_i2c_sensor.sensor";
 
-void EmptyI2CSensor::setup() {
+void SI1133I2CSensor::setup() {
   // I2C device initialization is typically done here.
   // Note that a number of read/write methods are available in the I2CDevice
   // class. See "i2c/i2c.h" for details.
@@ -28,7 +29,7 @@ void EmptyI2CSensor::setup() {
   }
 }
 
-void EmptyI2CSensor::update() {
+void SI1133I2CSensor::update() {
   // Work to be done at each update interval
   uint8_t read_cmd = 0x42; // Example command to query the device for data
   // Instruct the device to read data
@@ -48,9 +49,9 @@ void EmptyI2CSensor::update() {
   this->publish_state(static_cast<float>(response));
 }
 
-void EmptyI2CSensor::dump_config() {
+void SI1133I2CSensor::dump_config() {
   ESP_LOGCONFIG(TAG, "Empty I2C sensor");
 }
 
-} // namespace empty_i2c_sensor
+} // namespace si1133_i2c_sensor
 } // namespace esphome
