@@ -5,14 +5,14 @@
 #include "esphome/components/i2c/i2c.h"
 
 namespace esphome {
-namespace empty_i2c_sensor {
+namespace si1133_i2c_sensor {
 
-class EmptyI2CSensor : public sensor::Sensor, public PollingComponent, public i2c::I2CDevice {
+class Si1133I2CSensor : public sensor::Sensor, public PollingComponent, public i2c::I2CDevice {
  public:
   void setup() override;
   void update() override;
   void dump_config() override;
 };
 
-}  // namespace EmptyI2CSensor
+}  // namespace Si1133I2CSensor
 }  // namespace esphome
