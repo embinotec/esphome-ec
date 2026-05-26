@@ -4,7 +4,7 @@
  * https://os.mbed.com/teams/SiliconLabs/code/Si1133/
  ******************************************************************************/
 
-#include "si1133.h"
+#include "si1133.hpp"
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"
 

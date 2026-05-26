@@ -1,3 +1,6 @@
+
+
+´´´yaml
 # example configuration:
 
 sensor:
@@ -7,3 +10,4 @@ sensor:
 i2c:
   sda: 5
   scl: 6
+´´´
