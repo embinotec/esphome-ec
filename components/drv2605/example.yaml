@@ -1,0 +1,91 @@
+# DRV2605 Haptic Motor Driver Example Configuration
+
+esphome:
+  name: haptic-test
+  platform: ESP32
+  board: esp32dev
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: "your_ssid"
+  password: "your_password"
+
+# Configure I2C bus
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+  id: bus_a
+
+# Configure DRV2605 component
+drv2605:
+  id: haptic_driver
+  motor_type: ERM  # or LRA for linear resonant actuator
+  library: 1       # Library selection (1-5 for ERM, 6 for LRA)
+
+# Example button to trigger haptic feedback
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+      mode: INPUT_PULLUP
+    name: "Button"
+    on_press:
+      # Play a single haptic effect
+      - drv2605.play_effect:
+          id: haptic_driver
+          effect: 47  # Strong Click 100%
+
+  - platform: gpio
+    pin:
+      number: GPIO4
+      inverted: true
+      mode: INPUT_PULLUP
+    name: "Button 2"
+    on_press:
+      # Play a sequence of haptic effects
+      - drv2605.play_sequence:
+          id: haptic_driver
+          effects: [14, 1, 14, 1]  # Ramp Up/Down pattern
+
+# Example switch to control haptic driver
+switch:
+  - platform: template
+    name: "Strong Buzz"
+    turn_on_action:
+      - drv2605.play_effect:
+          id: haptic_driver
+          effect: 1  # Strong Click 100%
+    turn_off_action:
+      - drv2605.stop:
+          id: haptic_driver
+
+# Example automation with complex haptic pattern
+interval:
+  - interval: 30s
+    then:
+      # Play a sequence every 30 seconds
+      - drv2605.play_sequence:
+          id: haptic_driver
+          effects: [10, 11, 12]  # Triple click
+
+# Example using real-time control for custom vibration patterns
+number:
+  - platform: template
+    name: "Haptic Intensity"
+    min_value: 0
+    max_value: 255
+    step: 1
+    optimistic: true
+    set_action:
+      - drv2605.set_realtime_value:
+          id: haptic_driver
+          value: !lambda "return x;"
