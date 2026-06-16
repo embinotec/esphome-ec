@@ -1,4 +1,10 @@
-# esphome-qmi8658
+# esphome-ec
+
+External components
+
+embinotec provides a lot of access to external components. This is the "all you need" library.
+
+
 
 Using [SensorLib](https://github.com/lewisxhe/SensorLib) by @lewisxhe
 
